@@ -1,0 +1,23 @@
+version: "3.9"
+services:
+  jupyter-notebook:
+    build:
+      context: .
+      target: jupyter-notebook
+    environment:
+      - JUPYTER_TOKEN=hi
+    volumes:
+      - ./.docker/jupyter:/home/jovyan/work
+    ports:
+      - 8888:8888
+    container_name: CopaFlai
+  mongodb:
+    build:
+      context: .
+      target: mongodb
+    volumes:
+      - ./.docker/mongodb:/data/db
+    restart: always
+    env_file: ./env/\.env-mongodb
+    ports:
+      - "27017:27017"
